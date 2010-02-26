@@ -5,6 +5,18 @@ function(doc, req) {
   // !code helpers/template.js
   // !code vendor/couchapp/path.js
 
+  if (null == doc) {
+    // if we have no document.
+    var last = req.path.pop()
+
+    if (last != 'page') {
+       return {
+         code: "302",
+         body: "page not found: '" + last + "'",
+         headers: { "Location": showPath('edit', last)  }
+       };
+    }
+  }
 
   // we only show http
   return template(templates.layout, {
