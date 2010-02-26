@@ -20,6 +20,7 @@ function(doc, req) {
 
   // we only show http
   return template(templates.layout, {
+    extra_js: "",
     wikiName: couchapp.name,
 //    title : doc.title,
 //    blogName : blog.title,
