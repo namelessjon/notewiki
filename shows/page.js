@@ -28,7 +28,8 @@ function(doc, req) {
 //    date : doc.created_at,
 //    author : doc.author,
     assets : assetPath(),
-    content: template(templates.page, {})
+    content: template(templates.page, {}),
+    newPagePath: showPath('edit', "")
 //    editPostPath : showPath('edit', doc._id),
 //    index : listPath('index','recent-posts',{descending:true, limit:5})
   });
