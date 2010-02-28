@@ -19,6 +19,7 @@ function(doc, req) {
         assets : assetPath(),
         docid: JSON.stringify(doc && doc._id || null)
     }),
-    newPagePath: showPath('edit', "")
+    newPagePath: showPath('edit', ""),
+    editPagePath: showPath('edit', (doc && doc._id || ""))
   });
 }

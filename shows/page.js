@@ -25,6 +25,7 @@ function(doc, req) {
         name: doc.name,
         body: convert(doc.body)
     }),
-    newPagePath: showPath('edit', "")
+    newPagePath: showPath('edit', ""),
+    editPagePath: showPath('edit', doc._id)
   });
 }
