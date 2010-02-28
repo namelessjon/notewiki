@@ -98,7 +98,7 @@ function prep(m){
 	m=m.replace(/\"([^\"]+)\":((http|https|mailto):\S+)/g,'<a href="$2">$1<\/a>');
 	m = make_image(m,/!([^!\s]+)!:(\S+)/);
 	m = make_image(m,/!([^!\s]+)!/);
-	m=m.replace(/"([^\"]+)":(\S+)/g,function($0,$1,$2){return tag("a",qat('href',aliases[$2]),$1)});
+	m=m.replace(/"([^\"]+)":(\S+)/g,function($0,$1,$2){return tag("a",qat('href',aliases[$2] || ("http://" + $2)),$1)});
 	m=m.replace(/(=)?"([^\"]+)"/g,function($0,$1,$2){return ($1)?$0:"&#8220;"+$2+"&#8221;"});
 	return m;
 }
