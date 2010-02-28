@@ -3,17 +3,15 @@ function(doc, req) {
   // !json templates.layout
   // !json couchapp
   // !code helpers/template.js
+  // !code helpers/textile.js
   // !code vendor/couchapp/path.js
 
   if (null == doc) {
-    // if we have no document.
-    var last = req.path.pop()
-
-    if (last != 'page') {
+    if (req.id) {
        return {
          code: "302",
-         body: "page not found: '" + last + "'",
-         headers: { "Location": showPath('edit', last)  }
+         body: "page not found: '" + req.id + "'",
+         headers: { "Location": showPath('edit', req.id)  }
        };
     }
   }
@@ -22,15 +20,11 @@ function(doc, req) {
   return template(templates.layout, {
     extra_js: "",
     wikiName: couchapp.name,
-//    title : doc.title,
-//    blogName : blog.title,
-//    post : doc.html,
-//    date : doc.created_at,
-//    author : doc.author,
     assets : assetPath(),
-    content: template(templates.page, {}),
+    content: template(templates.page, {
+        name: doc.name,
+        body: convert(doc.body)
+    }),
     newPagePath: showPath('edit', "")
-//    editPostPath : showPath('edit', doc._id),
-//    index : listPath('index','recent-posts',{descending:true, limit:5})
   });
 }

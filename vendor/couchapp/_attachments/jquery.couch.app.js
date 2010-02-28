@@ -19,13 +19,28 @@
 // });
 
 (function($) {
-  
+
   function Design(db, name) {
     this.doc_id = "_design/"+name;
     this.view = function(view, opts) {
       db.view(name+'/'+view, opts);
     };
   };
+
+  function f(n) {    // Format integers to have at least two digits.
+    return n < 10 ? '0' + n : n;
+  }
+
+
+  Date.prototype.toJSON = function() {
+    return this.getUTCFullYear()   + '/' +
+    f(this.getUTCMonth() + 1) + '/' +
+    f(this.getUTCDate())      + ' ' +
+    f(this.getUTCHours())     + ':' +
+    f(this.getUTCMinutes())   + ':' +
+    f(this.getUTCSeconds())   + ' +0000';
+  };
+
 
   var login;
   

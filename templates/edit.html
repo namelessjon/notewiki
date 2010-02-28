@@ -1,0 +1,13 @@
+<form id="new-post" action="new.html" method="post">
+    <h2>Create a new page</h2>
+    <p><label>Name</label>
+    <input type="text" size="50" name="name" value="<%= pageName %>"></p>
+    <p><label for="body">Body</label>
+    <textarea name="body" rows="28" cols="80"></textarea></p>
+    <p>
+    <input id="preview" type="button" value="Preview"/>
+    <input type="submit" value="Save &rarr;"/> <span id="saved" style="display:none;">Saved</span>
+    </p>
+</form>
+<a href="http://warpedvisions.org/projects/markdown-cheat-sheet/">Markdown help</a>
+<div id="show-preview"></div>
