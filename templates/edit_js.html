@@ -9,6 +9,11 @@
                     format: "textile",
                     author: User._current_user.name
                 },
+                onLoad : function(doc) {
+                    if (doc._id) {
+                        $('form#new-post h2').html('Editing <a href="../page/'+doc._id+'">'+doc._id+'</a>');
+                    }
+                },
                 beforeSave : function(doc) {
                    if (!doc.created_at) {
                         doc.created_at = new Date();
@@ -17,6 +22,7 @@
                     doc._id = doc.name;
                 },
                 success: function(resp) {
+                    $('form#new-post h2').html('Editing <a href="../page/'+resp.id+'">'+resp.id+'</a>');
                     $("#saved").text("Saved _rev: "+resp.rev).fadeIn(500).fadeOut(3000);
                 }
             });
