@@ -90,7 +90,7 @@ div#container {
 text-align:left
 }
 
-div#content p, div#extra p, div#sidebar p {
+div#content p, div#extra p, div#sidebar p, div#account {
 font-family: "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
 font-size: 11px;
 color: #444;
@@ -164,13 +164,36 @@ border-bottom: 1px solid #333;
 border-right: 1px solid #333;
 }
 
-/*
-
- Would be nice if you could keep this credit below. Thanks.
-
-*/
-
 #design-by {
 float: right;
 display:inline;
+}
+
+#loginform {
+-moz-border-radius-topleft:5px;
+-moz-border-radius-bottomleft:5px;
+-moz-border-radius-bottomright:5px;
+-webkit-border-top-left-radius:5px;
+-webkit-border-bottom-left-radius:5px;
+-webkit-border-bottom-right-radius:5px;
+display:none;
+position:absolute;
+width:210px;
+z-index:100;
+border:1px transparent;
+	background-color: #ccc; 
+text-align:left;
+padding:4px;
+top: 60px;
+right: 0px; 
+margin-top:5px;
+margin-right: 0px;
+*margin-right: -1px;
+}
+#loginform input[type=text], #loginform input[type=password] {
+    width:200px;
+}
+
+#account {
+float:right;
 }

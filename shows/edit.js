@@ -16,6 +16,7 @@ function(doc, req) {
       wikiName: couchapp.name,
       assets : assetPath(),
       pageTitle: title,
+    userName: req.userCtx && req.userCtx.name || "",
       pageName: doc && doc.name || req.id || "",
       content: doc && doc.body || "",
       docid: JSON.stringify(doc && doc._id || null),

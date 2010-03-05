@@ -22,7 +22,17 @@
         </div>
         <div id="wrapper">
             <div id="content">
-            <div style="float: right;"><a href="#">Login</a></div>
+                <div id="account">
+                    <div id='user'>Hello <span class='name'><%= userName %></span> | <a href="#" class='logout'>Logout</a></div>
+                    <div class='form'>
+                        <form id='loginform' action='login'>
+                            <label for='username'>Username: </label><br /><input name='username' type='text' value='' /><br />
+                            <label for='password'>Password: </label><br /><input name='password' type='password' value='' /><br />
+                            <input value='Login!' type='submit' />
+                        </form>
+                        <a href="#" class='login'>Login</a>
+                    </div>
+                </div>
                 <h1><%= pageTitle %></h1>
                 <form id="new-post" action="new.html" method="post">
                     <p><label>Name</label>

@@ -35,7 +35,8 @@
           User.current(callback, true);
         },
         error: function(code, error, reason) {
-          showNotification('error', reason);
+            alert(reason);
+         // showNotification('error', reason);
         }
       });
     },
@@ -67,13 +68,49 @@
 })(jQuery);
 
 $(function() {
+    // check for login when we load the page
     User.current(function(user) {
         if (user) {
-            $('#basic_account').html("Hello " + user.name);
-        } else { 
-            $('#basic_account').html("Hello anon");
-        }
+            $('#account #user .name').html(user.name);
+            $('#account #user').show();
+            $('#account .form').hide();
+        };
+    });
 
+    // bind logout to the log out link
+    $('#account .logout').click (function() {
+        User.logout(function() {
+            $('#account #user').hide();
+             $('#account .form').show();
+        });
+        return false;
+    });
 
+    // bind the form toggling to the login link
+    var a = $('#account a.login');
+    a.bind('click', { link: a }, function(e) {
+        var top = e.data.link.offset().top + e.data.link.height();
+        var form = $('#loginform');
+        var left = e.data.link.offset().left - form.width() + e.data.link.width();
+        form.css('left', left);
+        form.css('top', top);
+        form.toggle();
+        return false;
+    });
+
+    // override the submit event for the form.
+   $('#loginform').submit(function() {
+     User.login( // there must be a cleaner way to do this!
+         $('#loginform input[type="text"]').val(),
+        $('#loginform input[type="password"]').val(),
+        function(user) {
+            $('#loginform input[type="text"]').val('');
+            $('#loginform input[type="password"]').val();
+
+            $('#account #user .name').html(user.name);
+            $('#account #user').show();
+            $('#account div.form').hide();
+        });
+        return false;
     });
 });

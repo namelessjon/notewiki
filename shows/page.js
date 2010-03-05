@@ -20,6 +20,7 @@ function(doc, req) {
     wikiName: couchapp.name,
     assets : assetPath(),
     pageTitle: doc.name,
+    userName: req.userCtx && req.userCtx.name || "",
     content: convert(doc.body),
     newPagePath: showPath('edit', ""),
     editPagePath: showPath('edit', doc._id)
