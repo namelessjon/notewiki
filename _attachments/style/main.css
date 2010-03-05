@@ -169,6 +169,10 @@ float: right;
 display:inline;
 }
 
+#user {
+display:none;
+}
+
 #loginform {
 -moz-border-radius-topleft:5px;
 -moz-border-radius-bottomleft:5px;

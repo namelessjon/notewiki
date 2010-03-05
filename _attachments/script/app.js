@@ -81,7 +81,7 @@ $(function() {
     $('#account .logout').click (function() {
         User.logout(function() {
             $('#account #user').hide();
-             $('#account .form').show();
+            $('#account .form').show();
         });
         return false;
     });
@@ -105,10 +105,11 @@ $(function() {
         $('#loginform input[type="password"]').val(),
         function(user) {
             $('#loginform input[type="text"]').val('');
-            $('#loginform input[type="password"]').val();
+            $('#loginform input[type="password"]').val('');
 
             $('#account #user .name').html(user.name);
             $('#account #user').show();
+            $('#loginform').hide();
             $('#account div.form').hide();
         });
         return false;
