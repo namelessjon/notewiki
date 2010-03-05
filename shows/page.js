@@ -1,6 +1,5 @@
 function(doc, req) {
   // !json templates.page
-  // !json templates.layout
   // !json couchapp
   // !code helpers/template.js
   // !code helpers/textile.js
@@ -17,14 +16,11 @@ function(doc, req) {
   }
 
   // we only show http
-  return template(templates.layout, {
-    extra_js: "",
+  return template(templates.page, {
     wikiName: couchapp.name,
     assets : assetPath(),
-    content: template(templates.page, {
-        name: doc.name,
-        body: convert(doc.body)
-    }),
+    pageTitle: doc.name,
+    content: convert(doc.body),
     newPagePath: showPath('edit', ""),
     editPagePath: showPath('edit', doc._id)
   });

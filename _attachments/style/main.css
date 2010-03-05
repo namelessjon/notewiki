@@ -1,53 +1,176 @@
-html,body{margin:0;padding:0}
-body{font: 85%/1.3 TrebuchetMS,Arial,sans-serif;
-    text-align: left;background: #fff;padding-bottom:20px}
-a { color: #0066B3; background: inherit; text-decoration: none;}
-h1 { font: bold 2.1em Arial, Arial, Sans-Serif; color: #036DA7 }
-h2 { font: bold 1.1em Arial, Arial, Sans-Serif; padding: 0; margin: 0; }
+/* 
+=======================================================
+Lemon CSS
 
-div#header{width:100%;overflow:hidden;background: #BBD9EE; }
-div#header h1,div#menu{width:770px;margin:0 auto;text-align:left}
-div#header h1{padding: 30px 0 20px;color: #fff}
+Released for OSWD and OWD.
+Coded by Anthony Yeung (http://smallpark.org)
+May 24 2005
+It would be nice if you could leave this here, thanks.
+=======================================================
+*/
 
-ul#nav,ul#nav li{list-style-type:none;margin:0;padding:0}
-ul#nav{float:right;font-size: 80%}
-ul#nav li{float:left;margin-left: 3px;text-align: center}
-ul#nav a{float:left;width: 95px;padding: 5px 0;background: #E7F1F8;text-decoration:none;color: #666; border-top : 1px solid #fff; border-left : 1px solid #fff; border-right : 1px solid #fff;}
-ul#nav a:hover{background: #fff;color: #000}
-ul#nav li.activelink a,ul#nav li.activelink a:hover{background: #FFF;color: #003}
-
-#right {
-	float: left;
-	width: 76%;
-	padding: 1em;
-	margin-bottom: 1.2em;
-	background: #eee;
-	text-align: justify;
+html,body {
+	margin:0;
+	padding:0;
 }
 
-#left {
-	float: right;
-	width: 20%;
-	margin: 0 0 10px 0;
-	
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	text-align:center;
+	margin-top: 20px;
 }
 
-#left .box {
-	
-	padding: 1em;
-	margin: 0 0 1em 0;
-	background : #FFF6BF;
+div#content a, div#extra a, div#sidebar a {
+	color: #FFBA27;
+	font-weight: bold;
+	text-decoration: none;
+	background-color: #FAFAFA; 
+	border-bottom: 1px solid #F1F1F1; 
+	border-right: 1px solid #F1F1F1;
+	padding: 1px;
 }
 
-
-#content {
-font: 95%/1.3 TrebuchetMS,Arial,sans-serif;
-	margin: 0 auto;
-    padding: 15px;
-	background: #fff;
-	
-	
+div#content a:hover , div#extra a:hover, div#sidebar a:hover {
+	color: #FFBA27;
+	font-weight: bold;
+	text-decoration: none;
+	background-color: #FAFAFA; 
+	border-bottom: 1px solid #CCC; 
+	border-right: 1px solid #CCC;
+	padding: 1px;
 }
 
-ul {  padding: 0; margin: 0;}
-li { list-style-type: none;}
+div#header {
+	padding-bottom: 5px;
+	border-bottom: 1px solid #EEE;
+}
+
+div#header h1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 25px;
+	font-weight: normal;
+	color: #FFBA27;
+	letter-spacing: -1px;
+}
+
+div#header h2 { /* The tagline thing */
+	margin: 0;
+	padding: 0;
+	font-size: 11px;
+	font-weight: normal;
+	color: #999;
+	padding-left: 20px;
+	margin-top: -15px;
+}
+
+#navigation {
+font-family: "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+float: right;
+}
+
+#navigation li {
+display: inline;
+padding-right: 20px;
+font-size: 11px;
+}
+
+#navigation li a {
+font-size: 11px;
+color: #666;
+font-weight: normal;
+padding: 4px;
+text-decoration: none;
+}
+
+#navigation li a:hover {
+text-decoration: underline;
+}
+
+div#container {
+text-align:left
+}
+
+div#content p, div#extra p, div#sidebar p {
+font-family: "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+font-size: 11px;
+color: #444;
+line-height:1.8em;
+}
+
+div#content h1, div#extra h1, div#sidebar h1 {
+font-size: 14px;
+font-weight: normal;
+color: #FFBA27; 
+text-decoration: none; 
+padding: 3px 6px; 
+background-color: #F9F9F9; 
+border-bottom: 1px solid #F1F1F1; 
+border-right: 1px solid #F1F1F1;
+}
+
+div#content h2 {
+font-family: "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+font-size: 11px;
+font-weight: bold;
+color: #444;
+margin: 0;
+padding: 0;
+}
+
+div#footer p {
+
+margin:0;padding:5px 10px;
+}
+
+div#container {
+width:700px;
+margin:0 auto;
+}
+
+div#sidebar {
+float:right;
+width:330px;
+padding-bottom: 10px;
+}
+
+div#extra {
+float:left;
+width:330px;
+}
+
+div#footer {
+margin-top: 10px;
+background-color: #333;
+color: #FFF;
+font-size: 11px;
+font-family: Tahoma, Arial, Helvetica, sans-serif;
+clear:both;
+width:100%;
+padding: 5px;
+}
+
+div#footer a, div#footer a:hover {
+margin-top: 10px;
+background-color: #333;
+color: #FFF;
+font-size: 11px;
+font-family: Tahoma, Arial, Helvetica, sans-serif;
+clear:both;
+width:100%;
+color: #FFBA27;
+font-weight: bold;
+text-decoration: none;
+border-bottom: 1px solid #333; 
+border-right: 1px solid #333;
+}
+
+/*
+
+ Would be nice if you could keep this credit below. Thanks.
+
+*/
+
+#design-by {
+float: right;
+display:inline;
+}

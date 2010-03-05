@@ -1,25 +1,25 @@
 function(doc, req) {
   // !json templates.edit
-  // !json templates.edit_js
-  // !json templates.layout
   // !json couchapp
   // !code helpers/template.js
   // !code vendor/couchapp/path.js
   // !code helpers/json2.js
 
+  var title = "";
+  if (doc && doc._id) {
+     title = "Editting "+doc._id;
+     } else {
+     title = "New Page";
+  }
   // we only show http
-  return template(templates.layout, {
-    wikiName: couchapp.name,
-    assets : assetPath(),
-    content: template(templates.edit, {
-        pageName: req.id || "",
-        docid: JSON.stringify(doc && doc._id || null)
-    }),
-    extra_js: template(templates.edit_js, {
-        assets : assetPath(),
-        docid: JSON.stringify(doc && doc._id || null)
-    }),
-    newPagePath: showPath('edit', ""),
-    editPagePath: showPath('edit', (doc && doc._id || ""))
+  return template(templates.edit, {
+      wikiName: couchapp.name,
+      assets : assetPath(),
+      pageTitle: title,
+      pageName: doc && doc.name || req.id || "",
+      content: doc && doc.body || "",
+      docid: JSON.stringify(doc && doc._id || null),
+      newPagePath: showPath('edit', ""),
+      editPagePath: showPath('edit', (doc && doc._id || ""))
   });
 }
