@@ -10,7 +10,12 @@ function (newDoc, oldDoc, userCtx) {
 
   if (newDoc.type == 'page') {
       require("created_at", "author", "body", "format", "name");
-      assert(newDoc._id == newDoc.name, "Post name must be used as the _id");
+      assert(newDoc._id == newDoc.name, "Page name must be used as the _id");
+      matches('name', /^[A-Z]\w\w+$/, "Page name can only contain A-Z, a-z, 0-9 and _.  It also has to begin with a captial");
+  } else {
+      if (!isAdmin(userCtx)) {
+        forbidden("Sorry, you must be an admin to create a '"+newDoc.type+"' document");
+      }
   }
 
 }
