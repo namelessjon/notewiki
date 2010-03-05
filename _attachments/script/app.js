@@ -3,6 +3,7 @@
     // User class taken from swinger, by quirkey
     // Copyright (c) 2009 Aaron Quint
     // http://github.com/quirkey/swinger
+    // MIT License
   User = {
     _current_user: false,
     isLoggedIn: function() {
