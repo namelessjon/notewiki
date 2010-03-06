@@ -1,5 +1,5 @@
 function(head, req) {
-  // !json templates.recent
+  // !json templates.index
   // !json notewiki
   // !code vendor/couchapp/path.js
   // !code helpers/template.js
@@ -12,10 +12,10 @@ function(head, req) {
   // thier priority. In this case HTML is the preferred format, so it comes first.
   provides("html", function() {
     // render the html head using a template
-    send(template(templates.recent.head, {
+    send(template(templates.index.head, {
       wikiName : notewiki.name,
       description: notewiki.description,
-      pageTitle : "Recent Changes",
+      pageTitle : "All Pages",
       userName : req.userCtx && req.userCtx.name || "",
       newPagePath : showPath("edit"),
       recentPath : recentPath,
@@ -25,19 +25,25 @@ function(head, req) {
 
   // loop over view rows, rendering one at a time
   var row, key;
+  var last_key = "";
   while (row = getRow()) {
     var page = row.value;
     key = row.key;
-      send(template(templates.recent.row, {
+    if (last_key != key) {
+      send("<h2>" + key + "</h2>");
+    }
+    last_key = key
+
+
+      send(template(templates.index.row, {
         name : page.name,
         link : showPath("page", page.name),
-        author : page.author,
         updated_at : page.updated_at
       }));
   }
 
   // render the html tail template
-    return template(templates.recent.tail, {
+    return template(templates.index.tail, {
       assets : assetPath()
     });
   });

@@ -16,6 +16,7 @@ function(doc, req) {
   }
 
   var recentPath = listPath('recent','recent',{descending:true, limit:20});
+  var allPath = listPath('index','all');
 
   // we only show http
   return template(templates.page, {
@@ -27,6 +28,7 @@ function(doc, req) {
     content: convert(doc.body),
     newPagePath: showPath('edit', ""),
     editPagePath: showPath('edit', doc._id),
+    allPath : allPath,
     recentPath : recentPath
   });
 }
