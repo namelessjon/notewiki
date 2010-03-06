@@ -1,12 +1,6 @@
 h1. NoteWiki
 
-NoteWiki is a simple wiki system which uses "CouchDB":http://couchdb.apache.org
-as both the data store and to host the application. The design document for the
-application is managed using "couchapp":http://github.com/couchapp/couchapp.
-The wiki itself uses "textile":http://www.textism.com/tools/textile/ as the
-markup language, with a few wiki specific helpers (such as for WikiWords).  It
-uses CouchDB's native user authentication.  The CSS for the application is based
-on the lemonaid template by "smallpark studios":http://smallpark.org.
+NoteWiki is a simple wiki system which uses "CouchDB":http://couchdb.apache.org as both the data store and to host the application. The design document for the application is managed using "couchapp":http://github.com/couchapp/couchapp. The wiki itself uses "textile":http://www.textism.com/tools/textile/ as the markup language, with a few wiki specific helpers (such as for WikiWords).  It uses CouchDB's native user authentication.  The CSS for the application is based on the lemonaid template by "smallpark studios":http://smallpark.org.
 
 h2. Features
 
