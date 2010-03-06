@@ -98,7 +98,7 @@ line-height:1.8em;
 }
 
 div#content h1, div#extra h1, div#sidebar h1 {
-font-size: 14px;
+font-size: 18px;
 font-weight: normal;
 color: #FFBA27; 
 text-decoration: none; 
@@ -110,9 +110,18 @@ border-right: 1px solid #F1F1F1;
 
 div#content h2 {
 font-family: "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
-font-size: 11px;
+font-size: 14px;
 font-weight: bold;
 color: #444;
+margin: 0;
+padding: 0;
+}
+
+div#content h3 {
+font-family: "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+font-size: 11px;
+font-weight: bold;
+color: #FFBA27;
 margin: 0;
 padding: 0;
 }
