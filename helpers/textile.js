@@ -4,6 +4,8 @@
 *
 *	ben@ben-daglish.net (with thanks to John Hughes for improvements)
 *   Issued under the "do what you like with it - I take no respnsibility" licence
+*
+*   Some modifications by Jonathan Stott
 ****************************************/
 
 var inpr,inbq,inbqq,html;
@@ -100,6 +102,21 @@ function prep(m){
 	m = make_image(m,/!([^!\s]+)!/);
 	m=m.replace(/"([^\"]+)":(\S+)/g,function($0,$1,$2){return tag("a",qat('href',aliases[$2] || ("http://" + $2)),$1)});
 	m=m.replace(/(=)?"([^\"]+)"/g,function($0,$1,$2){return ($1)?$0:"&#8220;"+$2+"&#8221;"});
+
+    // custom stuff added for notewiki
+    // links like [[This]] or like [[This|with a custom title]]
+    // atm, it only grabs wikilinks.  This perhaps should change for greater sense making.
+    var bracketed = "\\[\\[([A-Z]\\w{2,})(?:\\|([^\\]]+))?\\]\\]";
+    // WikiWords
+    var wikiword  = "([A-Z]+[a-z]+[A-Z]+[a-z]\\w+)";
+    m=m.replace(RegExp("(?:" + bracketed + ")|(?:" + wikiword + ")", 'g' ),
+        function($0,$1,$2,$3) {
+            if ($3) {
+                return make_link($3);
+            } else {
+                return make_link($1, $2);
+            }
+        });
 	return m;
 }
 
@@ -111,6 +128,10 @@ function make_tag(s,re,t,sp) {
 		s = s.replace(re,sp+tag(t,st,m[1]));
 	}
 	return s;
+}
+
+function make_link(href, text) {
+    return text ? '<a href="'+href+'">'+text+'<\/a>' : '<a href="'+href+'">'+href+'<\/a>';
 }
 
 function make_image(m,re) {
