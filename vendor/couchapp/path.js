@@ -54,6 +54,11 @@ function listPath() {
   return makePath(concatArgs(parts, arguments));
 };
 
+function attachPath() {
+    var p = req.path, parts = ['', p[0]];
+    return makePath(concatArgs(parts, arguments));
+}
+
 function olderPath(info) {
   if (!info) return null;
   var q = req.query;
