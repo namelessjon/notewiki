@@ -11,6 +11,10 @@ function(doc, req) {
      } else {
      title = "New Page";
   }
+
+
+  var recentPath = listPath('recent','recent',{descending:true, limit:20});
+
   // we only show http
   return template(templates.edit, {
       wikiName: couchapp.name,
@@ -21,6 +25,7 @@ function(doc, req) {
       content: doc && doc.body || "",
       docid: JSON.stringify(doc && doc._id || null),
       newPagePath: showPath('edit', ""),
-      editPagePath: showPath('edit', (doc && doc._id || ""))
+      editPagePath: showPath('edit', (doc && doc._id || "")),
+      recentPath : recentPath
   });
 }

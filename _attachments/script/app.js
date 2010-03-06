@@ -114,4 +114,9 @@ $(function() {
         });
         return false;
     });
+
+    // prettify dates
+    $('.date').each(function() {
+        $(this).html($.prettyDate( $(this).html()));
+    });
 });

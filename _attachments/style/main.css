@@ -90,7 +90,7 @@ div#container {
 text-align:left
 }
 
-div#content p, div#extra p, div#sidebar p, div#account {
+div#content, div#extra p, div#sidebar p, div#account {
 font-family: "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
 font-size: 11px;
 color: #444;
