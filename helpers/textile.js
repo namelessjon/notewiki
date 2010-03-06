@@ -6,6 +6,8 @@
 *   Issued under the "do what you like with it - I take no respnsibility" licence
 *
 *   Some modifications by Jonathan Stott
+*   - biggest mod is the way links are handled.  This now involves a more complex
+*   process, but stops links being double-counted.
 ****************************************/
 
 var inpr,inbq,inbqq,html;
@@ -21,9 +23,13 @@ var bq = /^bq\.(\.)?\s*/;
 var table=/^table\s*{(.*)}\..*/;
 var trstyle = /^\{(\S+)\}\.\s*\|/;
 
+// all the types of links and link-like entities we're interested in matching.
+// Each link handler has two components.
+//   matcher: A string, with no captures, which will be made into a regex to find links of the appropriate type in the text
+//   handler: The function which will be called with the full text matched by matcher.  It returns the replacement text.
 var textileLinkHandlers = [
     {
-        name : "textilelink",
+        // A normal textile link
         matcher: '\\"[^\\"]+\":(?:http|https|mailto):\\S+',
         handler: function(text) {
             var m = /"([^\"]+)":(\S+)/.exec(text);
@@ -31,7 +37,7 @@ var textileLinkHandlers = [
         }
     },
     {
-        name : "textilereflink",
+        // Either a textile reference link, or a textile link without http://
         matcher: '\\"[^\\"]+\":\\S+',
         handler: function(text) {
             var m = /"([^\"]+)":(\S+)/.exec(text);
@@ -40,21 +46,21 @@ var textileLinkHandlers = [
         }
     },
     {
-        name: "imagelink",
+        // An image wrapped in a link
         matcher: '![^!\\s]+!(?::\\S+)',
         handler: function(text) {
             return make_image(text, /!([^!\s]+)!:(\S+)/);
         }
     },
     {
-        name: "image",
+        // An image (no link)
         matcher: '![^!\\s]+!',
         handler: function(text) {
             return make_image(text, /!([^!\s]+)!/);
         }
     },
     {
-        name : "bracketlink",
+        // A link like [[Link]] or like [[LinkPage|some text]]
         matcher : "\\[\\[[A-Z]\\w{2,}(?:\\|[^\\]]+)?\\]\\]",
         handler: function(text) {
             var m = /\[\[([A-Z]\w{2,})(?:\|([^\]]+))?\]\]/.exec(text);
@@ -62,12 +68,13 @@ var textileLinkHandlers = [
         }
     },
     {
-        name : "wikiword",
+        // a WikiWord
         matcher : "[A-Z]+[a-z]+[A-Z]+[a-z]\\w+",
         handler: function(text) { return make_link(text); }
     }
 ];
 
+// this regex matches any link we care about.
 var anyLinkRegex = new RegExp("("+ textileLinkHandlers.map(function (i) { return i.matcher; }).join(")|(") + ")", 'g' );
 
 
@@ -153,6 +160,8 @@ function prep(m){
 	return m;
 }
 
+// called after a successful match of the anyLinkRegex
+// It looks for the argument which isn't null, calls the handler from the array of handlers.
 function handle_link(match) {
     for (var i = 0; i < textileLinkHandlers.length; i++) {
         if (arguments[i+1]) {
