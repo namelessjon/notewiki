@@ -21,18 +21,68 @@ var bq = /^bq\.(\.)?\s*/;
 var table=/^table\s*{(.*)}\..*/;
 var trstyle = /^\{(\S+)\}\.\s*\|/;
 
+var textileLinkHandlers = [
+    {
+        name : "textilelink",
+        matcher: '\\"[^\\"]+\":(?:http|https|mailto):\\S+',
+        handler: function(text) {
+            var m = /"([^\"]+)":(\S+)/.exec(text);
+            return make_link(m[2], m[1]);
+        }
+    },
+    {
+        name : "textilereflink",
+        matcher: '\\"[^\\"]+\":\\S+',
+        handler: function(text) {
+            var m = /"([^\"]+)":(\S+)/.exec(text);
+            var link = aliases[m[2]] || ("http://" + m[2]);
+            return make_link(link, m[1]);
+        }
+    },
+    {
+        name: "imagelink",
+        matcher: '![^!\\s]+!(?::\\S+)',
+        handler: function(text) {
+            return make_image(text, /!([^!\s]+)!:(\S+)/);
+        }
+    },
+    {
+        name: "image",
+        matcher: '![^!\\s]+!',
+        handler: function(text) {
+            return make_image(text, /!([^!\s]+)!/);
+        }
+    },
+    {
+        name : "bracketlink",
+        matcher : "\\[\\[[A-Z]\\w{2,}(?:\\|[^\\]]+)?\\]\\]",
+        handler: function(text) {
+            var m = /\[\[([A-Z]\w{2,})(?:\|([^\]]+))?\]\]/.exec(text);
+            return make_link(m[1], m[2]);
+        }
+    },
+    {
+        name : "wikiword",
+        matcher : "[A-Z]+[a-z]+[A-Z]+[a-z]\\w+",
+        handler: function(text) { return make_link(text); }
+    }
+];
+
+var anyLinkRegex = new RegExp("("+ textileLinkHandlers.map(function (i) { return i.matcher; }).join(")|(") + ")", 'g' );
+
+
 function convert(t) {
 	var lines = t.split(/\r?\n/);
 	html="";
 	inpr=inbq=inbqq=0;
 	for(var i=0;i<lines.length;i++) {
-		if(lines[i].indexOf("[") == 0) {
+		if(lines[i].indexOf("[") == 0 && lines[i][1] != "[" ) {
 			var m = lines[i].indexOf("]");
 			aliases[lines[i].substring(1,m)]=lines[i].substring(m+1);
 		}
 	}
 	for(i=0;i<lines.length;i++) {
-		if (lines[i].indexOf("[") == 0) {continue;}
+		if (lines[i].indexOf("[") == 0 && lines[i][1] != "[") {continue;}
 		if(mm=para.exec(lines[i])){stp(1);inpr=1;html += lines[i].replace(para,"<p"+make_attr(mm[1])+">"+prep(mm[2]));continue;}
 		if(mm = /^h(\d)(\S*)\.\s*(.*)/.exec(lines[i])){stp(1);html += tag("h"+mm[1],make_attr(mm[2]),prep(mm[3]))+le;continue;}
 		if(mm=rfn.exec(lines[i])){stp(1);inpr=1;html+=lines[i].replace(rfn,'<p id="fn'+mm[1]+'"><sup>'+mm[1]+'<\/sup>'+prep(mm[2]));continue;}
@@ -94,30 +144,21 @@ function prep(m){
 	for(i in tags) {
 		m = make_tag(m,RegExp("^"+tags[i]+"(.+?)"+tags[i]),i,"");
 		m = make_tag(m,RegExp(" "+tags[i]+"(.+?)"+tags[i]),i," ");
-	}
+    }
+    m=m.replace(anyLinkRegex, handle_link);
 	m=m.replace(/\[(\d+)\]/g,'<sup><a href="#fn$1">$1<\/a><\/sup>');
 	m=m.replace(/([A-Z]+)\((.*?)\)/g,'<acronym title="$2">$1<\/acronym>');
-	m=m.replace(/\"([^\"]+)\":((http|https|mailto):\S+)/g,'<a href="$2">$1<\/a>');
-	m = make_image(m,/!([^!\s]+)!:(\S+)/);
-	m = make_image(m,/!([^!\s]+)!/);
-	m=m.replace(/"([^\"]+)":(\S+)/g,function($0,$1,$2){return tag("a",qat('href',aliases[$2] || ("http://" + $2)),$1)});
 	m=m.replace(/(=)?"([^\"]+)"/g,function($0,$1,$2){return ($1)?$0:"&#8220;"+$2+"&#8221;"});
 
-    // custom stuff added for notewiki
-    // links like [[This]] or like [[This|with a custom title]]
-    // atm, it only grabs wikilinks.  This perhaps should change for greater sense making.
-    var bracketed = "\\[\\[([A-Z]\\w{2,})(?:\\|([^\\]]+))?\\]\\]";
-    // WikiWords
-    var wikiword  = "([A-Z]+[a-z]+[A-Z]+[a-z]\\w+)";
-    m=m.replace(RegExp("(?:" + bracketed + ")|(?:" + wikiword + ")", 'g' ),
-        function($0,$1,$2,$3) {
-            if ($3) {
-                return make_link($3);
-            } else {
-                return make_link($1, $2);
-            }
-        });
 	return m;
+}
+
+function handle_link(match) {
+    for (var i = 0; i < textileLinkHandlers.length; i++) {
+        if (arguments[i+1]) {
+            return textileLinkHandlers[i].handler(match);
+        }
+    }
 }
 
 function make_tag(s,re,t,sp) {
