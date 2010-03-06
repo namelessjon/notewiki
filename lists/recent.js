@@ -1,6 +1,6 @@
 function(head, req) {
   // !json templates.recent
-  // !json couchapp
+  // !json notewiki
   // !code vendor/couchapp/path.js
   // !code helpers/template.js
 
@@ -12,9 +12,10 @@ function(head, req) {
   provides("html", function() {
     // render the html head using a template
     send(template(templates.recent.head, {
-        pageTitle : "Recent Changes",
-        wikiName : couchapp.name,
-        userName : req.userCtx && req.userCtx.name || "",
+      wikiName : notewiki.name,
+      description: notewiki.description,
+      pageTitle : "Recent Changes",
+      userName : req.userCtx && req.userCtx.name || "",
       newPagePath : showPath("edit"),
       recentPath : recentPath,
       assets : assetPath()

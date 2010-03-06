@@ -1,6 +1,6 @@
 function(doc, req) {
   // !json templates.edit
-  // !json couchapp
+  // !json notewiki
   // !code helpers/template.js
   // !code vendor/couchapp/path.js
   // !code helpers/json2.js
@@ -17,10 +17,11 @@ function(doc, req) {
 
   // we only show http
   return template(templates.edit, {
-      wikiName: couchapp.name,
+      wikiName: notewiki.name,
+      description: notewiki.description,
       assets : assetPath(),
       pageTitle: title,
-    userName: req.userCtx && req.userCtx.name || "",
+      userName: req.userCtx && req.userCtx.name || "",
       pageName: doc && doc.name || req.id || "",
       content: doc && doc.body || "",
       docid: JSON.stringify(doc && doc._id || null),
