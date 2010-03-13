@@ -1,4 +1,5 @@
 {
     "name": "NoteWiki",
-    "description": "for all your random note needs"
+    "description": "for all your random note needs",
+    "homepage" : "FrontPage"
 }

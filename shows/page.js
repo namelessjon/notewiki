@@ -17,7 +17,7 @@ function(doc, req) {
 
   var recentPath = listPath('recent','recent',{descending:true, limit:20});
   var allPath = listPath('index','all');
-  var homePath = showPath('page', 'FrontPage');
+  var homePath = showPath('page', notewiki.homepage);
 
   // we only show http
   return template(templates.page, {

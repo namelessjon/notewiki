@@ -6,7 +6,7 @@ function(head, req) {
 
   var recentPath = listPath('recent','recent',{descending:true, limit:20});
   var allPath = listPath('index','all');
-  var homePath = showPath('page', 'FrontPage');
+  var homePath = showPath('page',  notewiki.homepage);
 
   // The provides function serves the format the client requests.
   // The first matching format is sent, so reordering functions changes 
