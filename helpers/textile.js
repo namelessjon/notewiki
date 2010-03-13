@@ -10,7 +10,7 @@
 *   process, but stops links being double-counted.
 ****************************************/
 
-var inpr,inbq,inbqq,html;
+var inpr,inbq,inbqq,inpre,html;
 var aliases = new Array;
 var alg={'>':'right','<':'left','=':'center','<>':'justify','~':'bottom','^':'top'};
 var ent={"'":"&#8217;"," - ":" &#8211; ","--":"&#8212;"," x ":" &#215; ","\\.\\.\\.":"&#8230;","\\(C\\)":"&#169;","\\(R\\)":"&#174;","\\(TM\\)":"&#8482;"};
@@ -81,7 +81,7 @@ var anyLinkRegex = new RegExp("("+ textileLinkHandlers.map(function (i) { return
 function convert(t) {
 	var lines = t.split(/\r?\n/);
 	html="";
-	inpr=inbq=inbqq=0;
+	inpr=inbq=inbqq=inpre=0;
 	for(var i=0;i<lines.length;i++) {
 		if(lines[i].indexOf("[") == 0 && lines[i][1] != "[" ) {
 			var m = lines[i].indexOf("]");
@@ -89,7 +89,13 @@ function convert(t) {
 		}
 	}
 	for(i=0;i<lines.length;i++) {
-		if (lines[i].indexOf("[") == 0 && lines[i][1] != "[") {continue;}
+        if (lines[i].indexOf("[") == 0 && lines[i][1] != "[") {continue;}
+
+        // deal with pre tags.
+        if (mm = /<pre>/.exec(lines[i])) { inpre = 1; html += (lines[i] + "\n"); continue; }
+        if (inpre) { html += (lines[i] + "\n"); continue; }
+        if (mm = /<\/pre>/.exec(lines[i])) { inpre= 0; }
+
 		if(mm=para.exec(lines[i])){stp(1);inpr=1;html += lines[i].replace(para,"<p"+make_attr(mm[1])+">"+prep(mm[2]));continue;}
 		if(mm = /^h(\d)(\S*)\.\s*(.*)/.exec(lines[i])){stp(1);html += tag("h"+mm[1],make_attr(mm[2]),prep(mm[3]))+le;continue;}
 		if(mm=rfn.exec(lines[i])){stp(1);inpr=1;html+=lines[i].replace(rfn,'<p id="fn'+mm[1]+'"><sup>'+mm[1]+'<\/sup>'+prep(mm[2]));continue;}
