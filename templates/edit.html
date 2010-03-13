@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <h1><%= pageTitle %></h1>
-                <form id="new-post" action="new.html" method="post">
+                <form id="new-page" action="new.html" method="post">
                     <p><label>Name</label>
                     <input type="text" size="50" name="name" value="<%= pageName %>"></p>
                     <p><label for="body">Body</label>
@@ -67,7 +67,7 @@
 <script type="text/javascript" charset="utf-8">
     $(function () {
         $.couch.app(function(app) {
-            app.docForm("form#new-post", {
+            var postForm = app.docForm("form#new-page", {
                 id : <%= docid %>,
                 fields : [ "name", "body" ],
                 template : {
@@ -79,6 +79,16 @@
                     if (doc._id) {
                         $('#content h1').html('Editing <a href="../page/'+doc._id+'">'+doc._id+'</a>');
                     }
+                    $('#preview').before('<input type="button" id="delete" value="Delete Post"/> ');
+                    $("#delete").click(function() {
+                      postForm.deleteDoc({
+                        success: function(resp) {
+                          $("#content h1").text("Deleted "+resp.id);
+                          $('form#new-page input').attr('disabled', true);
+                        }
+                      });
+                      return false;
+                     });
                 },
                 beforeSave : function(doc) {
                    if (!doc.created_at) {
