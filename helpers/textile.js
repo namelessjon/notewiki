@@ -93,8 +93,8 @@ function convert(t) {
 
         // deal with pre tags.
         if (mm = /<pre>/.exec(lines[i])) { inpre = 1; html += (lines[i] + "\n"); continue; }
-        if (inpre) { html += (lines[i] + "\n"); continue; }
         if (mm = /<\/pre>/.exec(lines[i])) { inpre= 0; }
+        if (inpre) { html += (lines[i] + "\n"); continue; }
 
 		if(mm=para.exec(lines[i])){stp(1);inpr=1;html += lines[i].replace(para,"<p"+make_attr(mm[1])+">"+prep(mm[2]));continue;}
 		if(mm = /^h(\d)(\S*)\.\s*(.*)/.exec(lines[i])){stp(1);html += tag("h"+mm[1],make_attr(mm[2]),prep(mm[3]))+le;continue;}
