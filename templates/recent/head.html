@@ -9,7 +9,7 @@
     <div id="container">
         <div id="navigation">
             <ul>
-                <li><a href="#">Home</a></li>
+                <li><a href="<%= homePath %>">Home</a></li>
                 <li><a href="#">Attachments</a></li>
                 <li><a href="<%= newPagePath %>">New</a></li>
                 <li><a href="<%= allPath %>">All</a></li>
@@ -17,7 +17,7 @@
             </ul>
         </div>
         <div id="header">
-            <h1><%= wikiName %></h1>
+            <a href="<%= homePath %>"><h1><%= wikiName %></h1></a>
             <h2><%= description %></h2>
         </div>
         <div id="wrapper">

@@ -17,6 +17,7 @@ function(doc, req) {
 
   var recentPath = listPath('recent','recent',{descending:true, limit:20});
   var allPath = listPath('index','all');
+  var homePath = showPath('page', 'FrontPage');
 
   // we only show http
   return template(templates.page, {
@@ -29,6 +30,7 @@ function(doc, req) {
     newPagePath: showPath('edit', ""),
     editPagePath: showPath('edit', doc._id),
     allPath : allPath,
-    recentPath : recentPath
+    recentPath : recentPath,
+    homePath: homePath
   });
 }

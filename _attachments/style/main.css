@@ -20,6 +20,10 @@ body {
 	margin-top: 20px;
 }
 
+a {
+text-decoration: none;
+}
+
 div#content a, div#extra a, div#sidebar a {
 	color: #FFBA27;
 	font-weight: bold;

@@ -6,6 +6,7 @@ function(head, req) {
 
   var recentPath = listPath('recent','recent',{descending:true, limit:20});
   var allPath = listPath('index','all');
+  var homePath = showPath('page', 'FrontPage');
 
   // The provides function serves the format the client requests.
   // The first matching format is sent, so reordering functions changes 
@@ -20,7 +21,8 @@ function(head, req) {
       newPagePath : showPath("edit"),
       recentPath : recentPath,
       allPath : allPath,
-      assets : assetPath()
+      assets : assetPath(),
+      homePath : homePath
     }));
 
   // loop over view rows, rendering one at a time
