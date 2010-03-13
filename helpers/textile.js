@@ -141,8 +141,11 @@ function convert(t) {
 			html += "<p>"+prep(lines[i]);inpr=1;
 		}
 		else {html += prep(lines[i]);}
-	}
-	stp();
+    }
+    // close our table at the end of the document if it wasn't already.
+    if(intable) {html += "<\/table>"+le;intable=0;}
+
+    stp();
 	return html;
 }
 
