@@ -83,8 +83,11 @@
                 beforeSave : function(doc) {
                    if (!doc.created_at) {
                         doc.created_at = new Date();
-                        }
-                    doc.updated_at = new Date();
+                   }
+                   doc.updated_at = new Date();
+
+                   // cope with logging in after starting to edit.
+                   doc.author = User._current_user.name;
 
                     doc._id = doc.name;
                 },
