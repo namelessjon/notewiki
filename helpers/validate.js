@@ -12,7 +12,7 @@ function assert(should, message) {
 
 
 function isAdmin(userCtx) {
-  userCtx.roles.indexOf('_admin') != -1
+  return (userCtx.roles.indexOf('_admin') != -1);
 };
 
 function require() {
